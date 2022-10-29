@@ -1,0 +1,20 @@
+[[package]]
+name = "pytaglib"
+version = "1.5.0"
+description = "cross-platform, Python audio metadata (\"tagging\") library based on TagLib"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.10"
+content-hash = "f237702cee7fd1f8ae3df2c7aed6d535296df0b6bde8b60417b76eaaf7ac1528"
+
+[metadata.files]
+pytaglib = [
+    {file = "pytaglib-1.5.0-cp310-cp310-win_amd64.whl", hash = "sha256:4bc09366c02e864e533956a04d95574ec7d2c0cf3c1ad8041e327f679769b5a7"},
+    {file = "pytaglib-1.5.0-cp38-cp38-win_amd64.whl", hash = "sha256:e13d8cf999fb6407fa56db6ef6a0a317484e49324706fcb813de7c82a637d9d5"},
+    {file = "pytaglib-1.5.0-cp39-cp39-win_amd64.whl", hash = "sha256:49487f390aa605cf5ebc72d5a74e53a843fb74a60946ffa7b1c970e2fa6b46d3"},
+    {file = "pytaglib-1.5.0.tar.gz", hash = "sha256:8f7603dffdb1930428b305e79b8ca127e9cffc4ce4d2f7440a5f5226a82e6e5f"},
+]
