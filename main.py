@@ -1,7 +1,9 @@
 from PyQt6.QtCore import QSize
+from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QPushButton, QMainWindow, QFileDialog
 import sys
 from work_with_files import get_list_of_files, check_tags
+from pathlib import Path
 
 
 def main():
@@ -11,20 +13,29 @@ def main():
 
             self.setWindowTitle("Tag editor")
             self.setFixedSize(QSize(400, 400))
-
-            button = QPushButton("Open directory")
-            button.clicked.connect(self.open_directory)
-            self.setCentralWidget(button)
+            self._createToolBars()
 
         def open_directory(self):
             filepath = QFileDialog.getExistingDirectory(self, 'Select a directory with music')
             list_of_audio = get_list_of_files(filepath)
-            check_tags(list_of_audio)
+            # TODO Fix empty or invalid list
+            if len(list_of_audio) != 0:
+                check_tags(list_of_audio)
+
+        def _createToolBars(self):
+            action_bar = self.addToolBar("Toolbar")
+            action_bar.setMovable(False)
+            self.open_dir = QPushButton("")
+            icon = "resources/open_folder_24.svg"
+            icon_path = Path(icon)
+            if icon_path.is_file():
+                self.open_dir.setIcon(QIcon(icon))
+            action_bar.addWidget(self.open_dir)
+            self.open_dir.clicked.connect(self.open_directory)
 
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-
     app.exec()
 
 

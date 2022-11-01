@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import taglib
 from pathlib import Path
 
+
 @dataclass
 class Tag:
     Artist: str = ""
