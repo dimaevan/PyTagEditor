@@ -1,6 +1,6 @@
 from PyQt6.QtCore import QSize
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QApplication, QPushButton, QMainWindow, QFileDialog
+from PyQt6.QtWidgets import QApplication, QPushButton, QMainWindow, QFileDialog, QTableWidget, QLabel, QHeaderView
 import sys
 from work_with_files import get_list_of_files, check_tags
 from pathlib import Path
@@ -12,15 +12,16 @@ def main():
             super().__init__()
 
             self.setWindowTitle("Tag editor")
-            self.setFixedSize(QSize(400, 400))
+            self.setBaseSize(QSize(400, 400))
             self._createToolBars()
+            self.create_table()
 
-        def open_directory(self):
-            filepath = QFileDialog.getExistingDirectory(self, 'Select a directory with music')
-            list_of_audio = get_list_of_files(filepath)
-            # TODO Fix empty or invalid list
-            if len(list_of_audio) != 0:
-                check_tags(list_of_audio)
+        def create_table(self, files: int = 1):
+            table = QTableWidget(files, 9, self)
+            self.setCentralWidget(table)
+            table.setHorizontalHeaderLabels(
+                ["Filename", "Artist", "Title", "Album", "Albumartist", "Date", "Genre", "Track number",
+                 "Disk number"])
 
         def _createToolBars(self):
             action_bar = self.addToolBar("Toolbar")
@@ -32,6 +33,13 @@ def main():
                 self.open_dir.setIcon(QIcon(icon))
             action_bar.addWidget(self.open_dir)
             self.open_dir.clicked.connect(self.open_directory)
+
+        def open_directory(self):
+            filepath = QFileDialog.getExistingDirectory(self, 'Select a directory with music')
+            list_of_audio = get_list_of_files(filepath)
+            # TODO Fix empty or invalid list
+            if len(list_of_audio) != 0:
+                check_tags(list_of_audio)
 
     app = QApplication(sys.argv)
     window = MainWindow()
